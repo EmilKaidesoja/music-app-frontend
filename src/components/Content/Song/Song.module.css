@@ -1,0 +1,28 @@
+.Song {
+    width: 250px;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    margin: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.Song h2 {
+    color: white;
+}
+      
+.Song:hover {
+        color: #A87B7E;
+        border: 0.5px solid #A87B7E;
+        background: rgba(80, 26, 26, 0.2);
+        cursor: pointer;
+        box-shadow: 0 2px 3px black;
+}
+
+a {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}

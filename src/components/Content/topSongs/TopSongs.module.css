@@ -1,0 +1,15 @@
+.TopSongs {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 90%;
+    margin: auto;
+}
+
+.TopSongs Link  {
+    padding: 0;
+}
+a {
+    padding: 0;
+    margin: 0;
+}

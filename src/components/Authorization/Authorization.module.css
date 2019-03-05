@@ -1,0 +1,66 @@
+
+label {
+    margin-left: 10%;
+    float:  left;
+    color: #fff;
+  }
+  
+input:focus, textarea:focus {
+    border: 3px solid #866068;
+    outline: none;
+  }
+  input {
+    width: 80%;
+    padding: 1.5%;
+    margin: 8px 10% 8px 10%;
+    display: inline-block;
+    border-radius: 0.5px;
+    box-sizing: border-box;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    border: 0.5px solid #969588;
+    background: rgba(179, 173, 173, 0.15);
+    color: white;
+    font-size: 20px;
+  }
+  .Button {
+    color: white;
+    text-transform: uppercase;
+    background-color: Transparent;
+    padding: 10px;
+    border: 0.5px solid white;
+    margin: 5px;
+  }
+  
+  .Button:hover {
+    color: #A87B7E;
+    border: 0.5px solid #866068;
+    cursor: pointer;
+  }
+  .Login TextField {
+   display: block;
+  }
+
+  .Login input {
+    width: 60%;
+    padding: 1.5%;
+    margin: 8px 20% 8px 20%;
+    display: inline-block;
+    border-radius: 0.5px;
+    box-sizing: border-box;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    border: 0.5px solid #969588;
+    background: rgba(179, 173, 173, 0.15);
+    color: white;
+    font-size: 20px;
+  }
+.Login input:focus, textarea:focus {
+    border: 3px solid #866068;
+    outline: none;
+  }
+  .Login label {
+    margin-left: 20%;
+    float:  left;
+    color: #fff;
+  }

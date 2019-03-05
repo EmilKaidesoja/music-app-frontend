@@ -1,0 +1,30 @@
+.Track {
+    width: 100%;
+    padding: 0 0 0 4px;
+    text-align: left;
+    border: 1px solid #eee;
+    margin: 5px;    
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.Track h2 {
+    font-size: 100%;
+    color: white;
+}
+.Track p {
+    font-size: 100%;
+}
+      
+.Track:hover {
+        color: #A87B7E;
+        border: 0.5px solid #A87B7E;
+        background: rgba(80, 26, 26, 0.2);
+        cursor: pointer;
+}
+
+a {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}

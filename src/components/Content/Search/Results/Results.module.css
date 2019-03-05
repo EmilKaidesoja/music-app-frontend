@@ -1,0 +1,36 @@
+h2 {
+    color: white;
+}
+
+.Results {
+    width: 90%;
+    margin: auto;
+}
+
+.Results Link  {
+    padding: 0;
+}
+a {
+    padding: 0;
+    margin: 0;
+}
+.PageNumber  {
+    color: white;
+    float: left;
+    font-size: 130%;
+}
+.NextPageButton {
+        color: white;
+        text-transform: uppercase;
+        background-color: Transparent;
+        padding: 10px;
+        border: 0.5px solid white;
+        margin: 5px;
+      }
+
+.NextPageButton:hover {
+        color: #A87B7E;
+        border: 0.5px solid #866068;
+        cursor: pointer;
+      }
+
