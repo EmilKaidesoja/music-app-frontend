@@ -45,7 +45,7 @@ class Search extends Component {
                     placeholder="Search for something!"
                     className={this.props.classes.input}
                     classes={{
-                        underline: this.props.classes.underline
+                        underline: this.props.classes.underline,                     
                     }}
                     value={this.state.search}
                     onChange={this.change}
@@ -63,6 +63,9 @@ const styles = {
         color: 'white',
     },
     underline: {
+        '&&&&:hover:before':{
+            borderBottom: '1px solid rgba(0, 0, 0, 0.15)',
+        },
         '&:after': {
             borderBottom: '1px solid #866068',
         }
