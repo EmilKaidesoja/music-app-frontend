@@ -1,21 +1,34 @@
 import React from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
-import classes from './Signup.module.css';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
-const WelcomePage = (props) => {
+const signUp = (props) => {
     return (
-        <Auxiliary>           
-            <p>-- Please register --</p>
-            <button
-                className={classes.Button}
+        <Auxiliary>
+            <h2>Please register!</h2>
+            <Button
+                size="large"
+                className={props.classes.button}
                 onClick={props.clickRegister}
-            > Register account </button>
-            <p>-- Already a member? --</p>
-            <button
-                className={classes.Button}
+            > Register account </Button>
+            <h2>Already a member?</h2>
+            <Button
+                size="large"
+                className={props.classes.button}
                 onClick={props.clickLogin}
-            > Login </button>
+            > Login </Button>
         </Auxiliary>
     );
 }
-export default WelcomePage;
+const styles = {
+    button: {
+        color: 'white',
+        border: '1px solid white',
+        '&:hover': {
+            color: '#866068',
+            borderColor: '#866068',
+        },
+    }
+}
+export default withStyles(styles)(signUp);

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import classes from './Search.module.css';
 import { Redirect } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import SearchIcon from '@material-ui/icons/Search';
 
 class Search extends Component {
-        state= {
-            search: '',
-            enterPressed: false,
-        }
+    state = {
+        search: '',
+        searchSuccess: false,
+    }
 
     change = (event) => {
         this.setState({
@@ -16,28 +18,63 @@ class Search extends Component {
     }
     onSearchHandler = (event) => {
         if (event.key === 'Enter') {
-            this.setState({enterPressed: true})
+            this.setState({ searchSuccess: true })
         }
     }
-    componentWillReceiveProps(){
-        this.setState({enterPressed: false, search: ''})
+    searchIconClickedHandler = (event) => {
+        this.setState({searchSuccess: true})
+    }
+    componentWillReceiveProps() {
+        this.setState({ searchSuccess: false, search: '' })
     }
 
     render() {
-        if(this.state.enterPressed){
+        if (this.state.searchSuccess) {
             return <Redirect to={"/search/" + this.state.search} />
         }
         return (
-                <div className={classes.Search}>
-                    <input type="text" placeholder="Search for something!"
-                        value={this.state.search}
-                        onChange={this.change}
-                        onKeyPress={this.onSearchHandler}
-                    />                
-                    <i className="fa fa-search" ></i>
+            <div className={this.props.classes.search}>
+                <div onClick={this.searchIconClickedHandler}>
+                    <SearchIcon
+                        classes={{
+                            root: this.props.classes.searchIcon
+                        }}
+                    />
                 </div>
+                <Input
+                    placeholder="Search for something!"
+                    className={this.props.classes.input}
+                    classes={{
+                        underline: this.props.classes.underline
+                    }}
+                    value={this.state.search}
+                    onChange={this.change}
+                    onKeyPress={this.onSearchHandler}
+                />
+
+
+
+            </div>
         )
     }
 }
+const styles = {
+    input: {
+        color: 'white',
+    },
+    underline: {
+        '&:after': {
+            borderBottom: '1px solid #866068',
+        }
+    },
+    searchIcon: {
+        height: '30px',
+        width: 'auto',
+        marginRight: '10px',
+    },
+    search: {
+        display: 'flex',
+    }
+}
 
-export default Search;
+export default withStyles(styles)(Search);

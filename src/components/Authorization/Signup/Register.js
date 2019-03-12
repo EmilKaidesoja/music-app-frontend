@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import classes from '../Authorization.module.css';
+import Auxiliary from '../../../hoc/Auxiliary';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 class Register extends Component {
     state = {
@@ -7,58 +10,179 @@ class Register extends Component {
             firstName: '', lastName: '', email: '', username: '', password: ''
         },
     }
-
     change = (event) => {
         this.setState({
             user: { [event.target.name]: event.target.value }
         }
         );
     }
-
-    clearFields = (event) => {
-        event.preventDefault();
-        this.setState({
-            user: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                username: '',
-                password: ''
-            }
-        });
-    }
-
     register = () => {
-        console.log('You register (fix this later)')
+        console.log('You register')
     }
 
     render() {
-            return (
-                <div>
-                    <p>--Please register below--</p>
-                    <form onSubmit={this.register}>
-                        <label htmlFor='firstName'>First Name</label>
-                        <input type='text' name='firstName' value={this.state.user.firstName} onChange={this.change} /><br />
-
-                        <label htmlFor='lastName'>Last Name</label>
-                        <input type='text' name='lastName' value={this.state.user.lastName} onChange={this.change} /><br />
-
-                        <label htmlFor='email'>Email</label>
-                        <input type='text' name='email' value={this.state.user.email} onChange={this.change} /><br /><br />
-
-                        <label htmlFor='username'>Username</label>
-                        <input type='text' name='username' value={this.state.user.username} onChange={this.change} /><br />
-
-                        <label htmlFor='password'>Password</label>
-                        <input type='password' name='password' value={this.state.user.password} onChange={this.change} /><br /><br />
-
-                        <button type='button' value='register' onClick={this.register} className={classes.Button}>Register</button>
-
-                        <button type='button' value='clear' onClick={this.clearFields} className={classes.Button}>Clear</button>
-                    </form>
-                </div>
-            )
-        }
+        return (
+            <Auxiliary>
+                <h1>Register</h1>
+                <form>
+                    <TextField
+                        className={this.props.classes.textBox}
+                        InputLabelProps={{
+                            classes: {
+                                root: this.props.classes.cssLabel,
+                                focused: this.props.classes.cssFocused,
+                            },
+                        }}
+                        InputProps={{
+                            classes: {
+                                root: this.props.classes.cssOutlinedInput,
+                                focused: this.props.classes.cssFocused,
+                                notchedOutline: this.props.classes.notchedOutline,
+                                input: this.props.classes.font,
+                            },
+                        }}
+                        label="First Name"
+                        variant="outlined"
+                        name="firstName"
+                        onChange={this.change}
+                    />
+                    <TextField
+                        className={this.props.classes.textBox}
+                        InputLabelProps={{
+                            classes: {
+                                root: this.props.classes.cssLabel,
+                                focused: this.props.classes.cssFocused,
+                            },
+                        }}
+                        InputProps={{
+                            classes: {
+                                root: this.props.classes.cssOutlinedInput,
+                                focused: this.props.classes.cssFocused,
+                                notchedOutline: this.props.classes.notchedOutline,
+                                input: this.props.classes.font,
+                            },
+                        }}
+                        label="Last Name"
+                        variant="outlined"
+                        name="lastName"
+                        onChange={this.change}
+                    />
+                       <TextField
+                        className={this.props.classes.textBox}
+                        InputLabelProps={{
+                            classes: {
+                                root: this.props.classes.cssLabel,
+                                focused: this.props.classes.cssFocused,
+                            },
+                        }}
+                        InputProps={{
+                            classes: {
+                                root: this.props.classes.cssOutlinedInput,
+                                focused: this.props.classes.cssFocused,
+                                notchedOutline: this.props.classes.notchedOutline,
+                                input: this.props.classes.font,
+                            },
+                        }}
+                        label="E-mail"
+                        variant="outlined"
+                        name="emal"
+                        onChange={this.change}
+                    />
+                       <TextField
+                        className={this.props.classes.textBox}
+                        InputLabelProps={{
+                            classes: {
+                                root: this.props.classes.cssLabel,
+                                focused: this.props.classes.cssFocused,
+                            },
+                        }}
+                        InputProps={{
+                            classes: {
+                                root: this.props.classes.cssOutlinedInput,
+                                focused: this.props.classes.cssFocused,
+                                notchedOutline: this.props.classes.notchedOutline,
+                                input: this.props.classes.font,
+                            },
+                        }}
+                        label="Username"
+                        variant="outlined"
+                        name="username"
+                        onChange={this.change}
+                    />
+                       <TextField
+                        className={this.props.classes.textBox}
+                        InputLabelProps={{
+                            classes: {
+                                root: this.props.classes.cssLabel,
+                                focused: this.props.classes.cssFocused,
+                            },
+                        }}
+                        InputProps={{
+                            classes: {
+                                root: this.props.classes.cssOutlinedInput,
+                                focused: this.props.classes.cssFocused,
+                                notchedOutline: this.props.classes.notchedOutline,
+                                input: this.props.classes.font,
+                            },
+                        }}
+                        label="Password"
+                        variant="outlined"
+                        type="password"
+                        name="password"
+                        onChange={this.change}
+                    />
+                    <br />
+                    <Button 
+                    type='button' 
+                    value='register'
+                    size="large"
+                     onClick={this.register}
+                     className={this.props.classes.registerButton} >Register</Button>
+                </form>
+            </Auxiliary>
+        )
     }
+}
 
-export default Register;
+const styles = {
+    font: {
+        color: '#FFF',
+        fontSize: '20px'
+    },
+    textBox: {
+        background: 'rgba(179, 173, 173, 0.15)',
+        border: '1px solid rgba(253, 253, 253, 0.15)',
+        borderRadius: '5px',
+        width: '50%',
+        margin: '10px',
+        '&:hover': {
+            color: '#866068',
+            borderColor: 'rgba(80, 26, 26, 0.1)',
+        },
+    },
+    cssLabel: {
+        '&$cssFocused': {
+            color: 'white',
+        },
+        color: 'white',
+    },
+    cssFocused: {},
+    notchedOutline: {},
+    cssOutlinedInput: {
+        '&$cssFocused $notchedOutline': {
+            borderColor: '#866068',
+        },
+    },
+    registerButton: {
+        marginTop: '10px',
+        color: 'white',
+        border: '1px solid white',
+        '&:hover': {
+            color: '#866068',
+            borderColor: '#866068',
+        },
+    },
+}
+
+
+export default withStyles(styles)(Register);
