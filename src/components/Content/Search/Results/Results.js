@@ -11,6 +11,7 @@ class Result extends Component {
     state = {
         resultSongs: null,
         resultPage: 1,
+        blankSearch: false,
     }
 
     loadData() {
@@ -29,17 +30,26 @@ class Result extends Component {
             })
     }
     componentDidMount() {
-        this.loadData();
+        if (this.props.match.params.search !== undefined) {
+            this.loadData();
+
+        } else {
+            this.setState({ blankSearch: true })
+        }
+
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.match.params.search !== prevProps.match.params.search) {
-            this.setState({ resultSongs: null, resultPage: 1 }, () => {
-                this.loadData();
-            })
-
+        if (this.props.match.params.search !== undefined) {
+            if (this.props.match.params.search !== prevProps.match.params.search) {
+                this.setState({ resultSongs: null, resultPage: 1, blankSearch: false }, () => {
+                    this.loadData();
+                })
+            }
+        } else if(this.state.blankSearch === false) {
+                this.setState({ blankSearch: true })
+            }
         }
-    }
 
     nextPageHandler(resultPage) {
         let increment = resultPage + 1;
@@ -48,13 +58,31 @@ class Result extends Component {
         })
 
     }
+    previousPageHandler(resultPage) {
+        let decrement = resultPage - 1;
+        this.setState({ resultPage: decrement, resultSongs: null }, () => {
+            this.loadData();
+        })
+    }
 
 
     render() {
-        let resultSongs = this.state.error ? <p>Something went wrong</p> : <Spinner />
-        if (this.state.resultSongs) {
-            resultSongs = this.state.resultSongs.map(song => {
-                return (
+        let previousPage = null;
+        if (this.state.resultPage > 1) {
+            previousPage = (
+                <button className={classes.PageButton}
+                    onClick={() => this.previousPageHandler(this.state.resultPage)}
+                >Previous page</button>
+            )
+        }
+        let message = null;
+        let resultSongs = null;
+        if (!this.state.blankSearch) {
+            resultSongs = this.state.error ? <p>Something went wrong</p> : <Spinner />
+            if (this.state.resultSongs) {
+                message = <h2>Search results for {this.props.match.params.search}</h2>
+                resultSongs = this.state.resultSongs.map(song => {
+                    return (
                         <Link
                             to={"/song/" + song.track.commontrack_id}
                             key={song.track.track_id}>
@@ -63,20 +91,28 @@ class Result extends Component {
                                 trackName={song.track.track_name}
                             />
                         </Link>
-                )
-            })
+                    )
+                })
+            }
+        } else {
+            message = (
+                <div>
+                    <p>No results for a 'blank' search word.</p>
+                    <p> Please search again!</p>
+                </div>)
         }
         return (
             <Auxiliary>
-                <h2>Search results for {this.props.match.params.search}</h2>
+                {message}
                 <section className={classes.Results}>
                     {resultSongs}
                     <div className={classes.PageNumber}>
                         {this.state.resultPage}
                     </div>
-                    <button className={classes.NextPageButton}
+                    {previousPage}
+                    <button className={classes.PageButton}
                         onClick={() => this.nextPageHandler(this.state.resultPage)}
-                    >Next page --> {this.state.resultPage + 1}</button>
+                    >Next page</button>
                 </section>
             </Auxiliary>
         )

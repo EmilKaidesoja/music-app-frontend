@@ -30,7 +30,7 @@ class FullSong extends Component {
                 <Auxiliary>
                     <h1>{this.state.fullSong.artist}</h1>
                     <p>{this.state.fullSong.songName}</p>
-                    <p>Album - {this.state.fullSong.albumName}</p>
+                    <p>Album : {this.state.fullSong.albumName}</p>
                 </Auxiliary>
             )
         }

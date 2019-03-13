@@ -74,6 +74,10 @@ const styles = {
         height: '30px',
         width: 'auto',
         marginRight: '10px',
+        '&:hover': {
+            color: '#866068',
+            cursor: 'pointer',
+        }
     },
     search: {
         display: 'flex',

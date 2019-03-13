@@ -18,7 +18,7 @@
       
 .Track:hover {
         color: #A87B7E;
-        border: 0.5px solid #A87B7E;
+        border: 1px solid #A87B7E;
         background: rgba(80, 26, 26, 0.2);
         cursor: pointer;
 }

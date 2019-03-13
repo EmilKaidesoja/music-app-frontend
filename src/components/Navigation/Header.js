@@ -6,9 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-
 
 class Header extends Component {
     render() {
@@ -18,7 +15,6 @@ class Header extends Component {
                     <Toolbar>
                         <div className={this.props.classes.logo}> <NavLink to="/home"><Logo /></NavLink></div>
                         <NavLink to="/home" className={this.props.classes.title}>Home</NavLink>
-                        <NavLink className={this.props.classes.title} to="/contact">Contact</NavLink>
                         <Typography className={this.props.classes.searchBarFlex}>
                             <NavLink className={this.props.classes.title} to="/signup">Sign up</NavLink>
                         </Typography>

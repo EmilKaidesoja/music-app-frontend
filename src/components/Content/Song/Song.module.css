@@ -1,5 +1,6 @@
 .Song {
     width: 250px;
+    height: 200px;
     padding: 16px;
     text-align: center;
     border: 1px solid #eee;
@@ -16,7 +17,7 @@
 .Song:hover {
         color: #A87B7E;
         border: 0.5px solid #A87B7E;
-        background: rgba(80, 26, 26, 0.2);
+        background: rgb(49, 15, 15);
         cursor: pointer;
         box-shadow: 0 2px 3px black;
 }

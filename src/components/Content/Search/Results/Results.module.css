@@ -19,7 +19,7 @@ a {
     float: left;
     font-size: 130%;
 }
-.NextPageButton {
+.PageButton {
         color: white;
         text-transform: uppercase;
         background-color: Transparent;
@@ -28,9 +28,12 @@ a {
         margin: 5px;
       }
 
-.NextPageButton:hover {
+.PageButton:hover {
         color: #A87B7E;
         border: 0.5px solid #866068;
         cursor: pointer;
       }
 
+.PageButton:focus {
+        outline: none;
+      }

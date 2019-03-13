@@ -8,7 +8,7 @@ class Home extends Component {
             <Auxiliary>
                 <h1>Welcome to the music app</h1>
                     <p>Hello user!</p>
-                    <p>This is an application to search for your favorite songs, as well as discover new songs and top hits!
+                    <p>In this application you can search for your favorite songs and artists. Or discover new songs and top hits!
                     This application uses the musiXmatch API for the data.</p> 
                     <p>(This application is still a working progress)</p>
             </Auxiliary>
@@ -22,11 +22,7 @@ class Home extends Component {
                     <TopSongs />
                 </div>
                 <hr />
-                <div>
-                    <h1>Profile</h1>
-                    <p>Favorite genres etc.</p>
-                </div>
-                <hr />
+              
             </Auxiliary>
         )
     }

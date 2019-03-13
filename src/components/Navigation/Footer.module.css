@@ -1,0 +1,24 @@
+.Footer a{
+    text-decoration: none;
+    color: white;
+    font-size: 80%;
+}
+.Footer a:hover{
+    cursor: pointer;
+    color: #866068;
+}
+
+.Footer ul {
+    list-style-type: none;
+    color: white;
+    padding: 10px;
+}
+.Footer li {
+    display: inline;
+    padding: 0 25px 0 25px;
+}
+.Footer {
+    height:  50px;
+    align-content: center;
+}
+

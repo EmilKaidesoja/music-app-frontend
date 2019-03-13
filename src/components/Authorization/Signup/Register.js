@@ -3,6 +3,7 @@ import Auxiliary from '../../../hoc/Auxiliary';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import ArrowBack from '@material-ui/icons/ArrowBack';
 
 class Register extends Component {
     state = {
@@ -19,24 +20,33 @@ class Register extends Component {
     register = () => {
         console.log('You register')
     }
+    arrowBackPressed = () => {
+        this.props.history.push("/signup");
+    }
 
     render() {
         return (
             <Auxiliary>
-                <h1>Register</h1>
+                <ArrowBack
+                    classes={{
+                        root: this.props.classes.arrowBack,
+                    }}
+                    onClick={this.arrowBackPressed}
+                />
+                <h1 style={{ marginRight: "40px" }}>Register</h1>
                 <form>
                     <TextField
                         className={this.props.classes.textBox}
                         InputLabelProps={{
                             classes: {
-                                root: this.props.classes.cssLabel,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.Label,
+                                focused: this.props.classes.Focused,
                             },
                         }}
                         InputProps={{
                             classes: {
-                                root: this.props.classes.cssOutlinedInput,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.OutlinedInput,
+                                focused: this.props.classes.Focused,
                                 notchedOutline: this.props.classes.notchedOutline,
                                 input: this.props.classes.font,
                             },
@@ -50,14 +60,14 @@ class Register extends Component {
                         className={this.props.classes.textBox}
                         InputLabelProps={{
                             classes: {
-                                root: this.props.classes.cssLabel,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.Label,
+                                focused: this.props.classes.Focused,
                             },
                         }}
                         InputProps={{
                             classes: {
-                                root: this.props.classes.cssOutlinedInput,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.OutlinedInput,
+                                focused: this.props.classes.Focused,
                                 notchedOutline: this.props.classes.notchedOutline,
                                 input: this.props.classes.font,
                             },
@@ -67,18 +77,18 @@ class Register extends Component {
                         name="lastName"
                         onChange={this.change}
                     />
-                       <TextField
+                    <TextField
                         className={this.props.classes.textBox}
                         InputLabelProps={{
                             classes: {
-                                root: this.props.classes.cssLabel,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.Label,
+                                focused: this.props.classes.Focused,
                             },
                         }}
                         InputProps={{
                             classes: {
-                                root: this.props.classes.cssOutlinedInput,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.OutlinedInput,
+                                focused: this.props.classes.Focused,
                                 notchedOutline: this.props.classes.notchedOutline,
                                 input: this.props.classes.font,
                             },
@@ -88,18 +98,18 @@ class Register extends Component {
                         name="emal"
                         onChange={this.change}
                     />
-                       <TextField
+                    <TextField
                         className={this.props.classes.textBox}
                         InputLabelProps={{
                             classes: {
-                                root: this.props.classes.cssLabel,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.Label,
+                                focused: this.props.classes.Focused,
                             },
                         }}
                         InputProps={{
                             classes: {
-                                root: this.props.classes.cssOutlinedInput,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.OutlinedInput,
+                                focused: this.props.classes.Focused,
                                 notchedOutline: this.props.classes.notchedOutline,
                                 input: this.props.classes.font,
                             },
@@ -109,18 +119,18 @@ class Register extends Component {
                         name="username"
                         onChange={this.change}
                     />
-                       <TextField
+                    <TextField
                         className={this.props.classes.textBox}
                         InputLabelProps={{
                             classes: {
-                                root: this.props.classes.cssLabel,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.Label,
+                                focused: this.props.classes.Focused,
                             },
                         }}
                         InputProps={{
                             classes: {
-                                root: this.props.classes.cssOutlinedInput,
-                                focused: this.props.classes.cssFocused,
+                                root: this.props.classes.OutlinedInput,
+                                focused: this.props.classes.Focused,
                                 notchedOutline: this.props.classes.notchedOutline,
                                 input: this.props.classes.font,
                             },
@@ -132,12 +142,12 @@ class Register extends Component {
                         onChange={this.change}
                     />
                     <br />
-                    <Button 
-                    type='button' 
-                    value='register'
-                    size="large"
-                     onClick={this.register}
-                     className={this.props.classes.registerButton} >Register</Button>
+                    <Button
+                        type='button'
+                        value='register'
+                        size="large"
+                        onClick={this.register}
+                        className={this.props.classes.registerButton} >Register</Button>
                 </form>
             </Auxiliary>
         )
@@ -151,25 +161,21 @@ const styles = {
     },
     textBox: {
         background: 'rgba(179, 173, 173, 0.15)',
-        border: '1px solid rgba(253, 253, 253, 0.15)',
         borderRadius: '5px',
         width: '50%',
         margin: '10px',
-        '&:hover': {
-            color: '#866068',
-            borderColor: 'rgba(80, 26, 26, 0.1)',
-        },
+        border: 'none',
     },
-    cssLabel: {
-        '&$cssFocused': {
+    Label: {
+        '&$Focused': {
             color: 'white',
         },
         color: 'white',
     },
-    cssFocused: {},
+    Focused: {},
     notchedOutline: {},
-    cssOutlinedInput: {
-        '&$cssFocused $notchedOutline': {
+    OutlinedInput: {
+        '&$Focused $notchedOutline': {
             borderColor: '#866068',
         },
     },
@@ -181,7 +187,18 @@ const styles = {
             color: '#866068',
             borderColor: '#866068',
         },
+
     },
+    arrowBack: {
+        color: 'white',
+        float: 'left',
+        marginTop: '25px',
+        fontSize: '35px',
+        '&:hover': {
+            cursor: 'pointer',
+            color: '#866068',
+        }
+    }
 }
 
 

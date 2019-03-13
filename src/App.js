@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './components/Layout/Layout';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import Authorization from './components/Authorization/Authorization';
 import Home from './components/Content/Home/Home';
 import FullSong from './components/Content/FullSong/FullSong';
@@ -12,10 +12,15 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Layout>
-          <Route path="/signup" component={Authorization} />
-          <Route path="/home" component={Home} />
-          <Route path="/song/:id" exact component={FullSong} />
-          <Route path="/search/:search" component={Result} />
+          <Switch>
+            <Redirect exact from="/" to="/home" />
+            <Route path="/signup" component={Authorization} />
+            <Route path="/home" component={Home} />
+            <Route path="/song/:id" exact component={FullSong} />
+            <Route path="/search/:search" component={Result} />
+            <Route path="/search/" exact component={Result} />
+          </Switch>
+         
         </Layout>
       </BrowserRouter>
     );
