@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import musixmatch from '../../../Utils/musixmatch';
 import Auxiliary from '../../../../hoc/Auxiliary';
 import classes from './Results.module.css';
 import Track from './Track/Track';
@@ -15,7 +15,7 @@ class Result extends Component {
     }
 
     loadData() {
-        axios.get("track.search?q_artist=" + this.props.match.params.search + "&page_size=15&page=" + this.state.resultPage + "&s_track_rating=desc&apikey=a46e6b9fb2640fd377cde18fc2d20f51")
+        musixmatch.get("track.search?q_artist=" + this.props.match.params.search + "&page_size=15&page=" + this.state.resultPage + "&s_track_rating=desc&apikey=a46e6b9fb2640fd377cde18fc2d20f51")
             .then(response => {
                 console.log(response.data.message);
                 const resultSongs = response.data.message.body.track_list;
@@ -52,6 +52,7 @@ class Result extends Component {
         }
 
     nextPageHandler(resultPage) {
+        if(this.state.blankSearch) {return};
         let increment = resultPage + 1;
         this.setState({ resultPage: increment, resultSongs: null }, () => {
             this.loadData();

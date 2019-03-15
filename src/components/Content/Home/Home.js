@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
-import TopSongs from '../topSongs/TopSongs.js';
+import TopSongs from '../TopSongs/TopSongs.js';
 
 class Home extends Component {
     render() {

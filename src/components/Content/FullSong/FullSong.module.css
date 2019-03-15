@@ -1,0 +1,24 @@
+.CompleteAlbum h3{
+    color: white;
+    text-align: left;
+    margin-bottom: 25px;
+}
+.CompleteAlbum {
+    width: 450px;
+    padding: 0 25px 0 0;
+}
+.Lyrics {
+    padding: 50px 0 0 25px;
+    width: 450px;
+}
+.Lyrics p{
+    font-size: 100%; 
+}
+.Lyrics h3 {
+    color: white;
+    margin-bottom: 25px;
+}
+.FlexBox {
+
+    display: flex;
+}

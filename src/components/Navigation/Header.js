@@ -29,7 +29,7 @@ const styles = {
     root: {
         margin: '1% 12%',
         height: '8%',
-        background: 'rgba(179, 173, 173, 0.08)',
+        background: 'rgba(179, 173, 173, 0.13)',
         color: 'white',
     },
     navBar: {

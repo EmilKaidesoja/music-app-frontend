@@ -42,7 +42,7 @@ class Search extends Component {
                     />
                 </div>
                 <Input
-                    placeholder="Search for something!"
+                    placeholder="Search for an artist!"
                     className={this.props.classes.input}
                     classes={{
                         underline: this.props.classes.underline,                     

@@ -1,17 +1,31 @@
 .Song {
     width: 250px;
     height: 200px;
-    padding: 16px;
+    padding: 0;
     text-align: center;
     border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
+    box-shadow: 0 1px 1.5px #ccc;
     margin: 10px;
     box-sizing: border-box;
     cursor: pointer;
+    overflow: hidden;
 }
 
 .Song h2 {
     color: white;
+    margin-bottom: 0;
+}
+
+.SongName {
+  height: 45%;
+  border-top: 1px solid white;
+  background-color: rgba(179, 173, 173, 0.25);
+  box-shadow: 0 1px 1.5px white;
+}
+
+.SongName p {
+   margin: 0;
+   padding: 15px 0 15px 0;
 }
       
 .Song:hover {
@@ -20,6 +34,10 @@
         background: rgb(49, 15, 15);
         cursor: pointer;
         box-shadow: 0 2px 3px black;
+}
+
+.ArtistName {
+    height: 55%;
 }
 
 a {

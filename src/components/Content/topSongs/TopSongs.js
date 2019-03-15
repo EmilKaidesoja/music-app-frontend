@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import Song from './../Song/Song';
 import classes from './TopSongs.module.css';
 import { Link, } from 'react-router-dom';
 import Spinner from '../../UI/Spinner/Spinner';
+import musixmatch from '../../Utils/musixmatch';
 
 class TopSongs extends Component {
     state = {
         topSongs: null,
     }
     componentDidMount() {
-        axios.get("chart.tracks.get?page=1&page_size=6&country=fin&apikey=a46e6b9fb2640fd377cde18fc2d20f51")
+        musixmatch.get("chart.tracks.get?page=1&page_size=10&country=fin&apikey=a46e6b9fb2640fd377cde18fc2d20f51")
             .then(response => {
                 console.log(response.data.message.body.track_list);
                 const topSongs = response.data.message.body.track_list;

@@ -3,7 +3,7 @@ import Auxiliary from '../../../hoc/Auxiliary';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import ArrowBack from '@material-ui/icons/ArrowBack';
+import BackButton from '../../UI/BackButton/BackButton';
 
 class Login extends Component {
     state = {
@@ -28,11 +28,8 @@ class Login extends Component {
     render() {
         return (
             <Auxiliary>
-                <ArrowBack
-                    classes={{
-                        root: this.props.classes.arrowBack,
-                    }}
-                    onClick={this.arrowBackPressed}
+                <BackButton
+                    clicked={this.arrowBackPressed}
                 />
                 <h1 style={{ marginRight: "40px" }}>Login</h1>
                 <form>
@@ -124,16 +121,6 @@ const styles = {
             color: '#866068',
             borderColor: '#866068',
         },
-    },
-    arrowBack: {
-        color: 'white',
-        float: 'left',
-        marginTop: '25px',
-        fontSize: '35px',
-        '&:hover': {
-            cursor: 'pointer',
-            color: '#866068',
-        }
     },
 }
 
