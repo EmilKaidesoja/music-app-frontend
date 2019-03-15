@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Song from './../Song/Song';
-import classes from './TopSongs.module.css';
+import Song from '../Song/Song';
+import classes from './TopSong.module.css';
 import { Link, } from 'react-router-dom';
 import Spinner from '../../UI/Spinner/Spinner';
 import musixmatch from '../../Utils/musixmatch';

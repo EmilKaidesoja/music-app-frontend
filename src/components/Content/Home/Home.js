@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
-import TopSongs from '../TopSongs/TopSongs.js';
+import TopSong from '../TopSong/TopSong';
 
 class Home extends Component {
     render() {
@@ -19,7 +19,7 @@ class Home extends Component {
                     <hr />
                 <div>
                     <h1>Top songs right now!</h1>
-                    <TopSongs />
+                    <TopSong />
                 </div>
                 <hr />
               
