@@ -31,7 +31,7 @@ class UpdateInfo extends Component {
                 lastName={this.state.lastName}
                 email={this.state.email}
                 username={this.state.username}
-                endpoint={"/save/user/"}
+                endpoint={"save/user/"}
             />;
         }
         return (

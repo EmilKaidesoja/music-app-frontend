@@ -23,7 +23,7 @@ class Settings extends Component {
     getUserInformation = () => {
         axios({
             method: 'GET',
-            url: 'http://localhost:8080/users/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}users/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             },
@@ -45,7 +45,7 @@ class Settings extends Component {
     getFavoriteSongs = () => {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/favoriteSongs/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}favoriteSongs/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }
@@ -60,7 +60,7 @@ class Settings extends Component {
     getPrevSearches = () => {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/prevSearches/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}prevSearches/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }
@@ -80,7 +80,7 @@ class Settings extends Component {
     clearFavorites = () => {
         axios({
             method: 'DELETE',
-            url: 'http://localhost:8080/delete/favorites/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}delete/favorites/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }
@@ -96,7 +96,7 @@ class Settings extends Component {
     clearHistory = () => {
         axios({
             method: 'DELETE',
-            url: 'http://localhost:8080/delete/searches/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}delete/searches/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }
@@ -128,7 +128,7 @@ class Settings extends Component {
     deleteAccount = () => {
         axios({
             method: 'DELETE',
-            url: 'http://localhost:8080/delete/user/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}delete/user/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }

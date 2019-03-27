@@ -17,7 +17,7 @@ class FormValidation extends Component {
     registerUser = () => {
         axios({
             method: 'POST',
-            url: 'http://localhost:8080' + this.props.endpoint,
+            url: `${process.env.REACT_APP_BACKEND}` + this.props.endpoint,
             data: {
                 firstName: this.props.firstName,
                 lastName: this.props.lastName,
@@ -42,7 +42,7 @@ class FormValidation extends Component {
     updateUser() {
         axios({
             method: 'PUT',
-            url: 'http://localhost:8080' + this.props.endpoint + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}` + this.props.endpoint + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             },
@@ -68,7 +68,7 @@ class FormValidation extends Component {
     updatePassword = () => {
         axios({
             method: 'PUT',
-            url: 'http://localhost:8080' + this.props.endpoint + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}` + this.props.endpoint + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             },
@@ -109,11 +109,11 @@ class FormValidation extends Component {
         }
         this.setState({ errorMessage: message }, () => {
             if (this.state.errorMessage === null) {
-                if (this.props.endpoint === '/register/user') {
+                if (this.props.endpoint === 'register/user') {
                     this.registerUser();
-                } else if (this.props.endpoint === '/save/user/') {
+                } else if (this.props.endpoint === 'save/user/') {
                     this.updateUser();
-                } else if (this.props.endpoint === '/update/password/') {
+                } else if (this.props.endpoint === 'update/password/') {
                     this.updatePassword();
                 }
             }

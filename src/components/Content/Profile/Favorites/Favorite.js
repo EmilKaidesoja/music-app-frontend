@@ -15,7 +15,7 @@ class Favorite extends Component {
     removeFavorite = () => {
         axios({
             method: 'DELETE',
-            url: 'http://localhost:8080/delete/favorite/',
+            url: `${process.env.REACT_APP_BACKEND}delete/favorite/`,
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             },

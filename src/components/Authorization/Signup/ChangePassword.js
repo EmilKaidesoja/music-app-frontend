@@ -27,7 +27,7 @@ class ChangePassword extends Component {
             errorMessage = <FormValidation
                 password={this.state.password}
                 confirmPassword={this.state.confirmPassword}
-                endpoint={"/update/password/"}
+                endpoint={"update/password/"}
             />;
         }
         return (

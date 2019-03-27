@@ -34,7 +34,7 @@ class Register extends Component {
             username = {this.state.username}
             password = {this.state.password}
             confirmPassword = {this.state.confirmPassword}
-            endpoint= "/register/user"
+            endpoint= "register/user"
                 />;
         }
         return (

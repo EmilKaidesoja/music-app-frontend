@@ -21,7 +21,7 @@ class Profile extends Component {
     getUserData = () => {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/users/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}users/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }
@@ -41,7 +41,7 @@ class Profile extends Component {
     getFavoriteSongs = () => {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/favoriteSongs/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}favoriteSongs/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }
@@ -56,7 +56,7 @@ class Profile extends Component {
     getPrevSearches = () => {
         axios({
             method: 'get',
-            url: 'http://localhost:8080/prevSearches/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}prevSearches/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             }

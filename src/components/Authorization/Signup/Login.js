@@ -23,7 +23,7 @@ class Login extends Component {
         if (sessionStorage.getItem('token') === null) {
             axios({
                 method: 'POST',
-                url: 'http://localhost:8080/login',
+                url: `${process.env.REACT_APP_BACKEND}login`,
                 data: {
                     username: this.state.username,
                     password: this.state.password,
@@ -31,11 +31,9 @@ class Login extends Component {
 
             }).then(response => {
                 console.log(response)
-                //if the login was successful
                 if (response.status === 200) {
                     const jwtToken = response.headers.authorization;
                     sessionStorage.setItem('token', jwtToken);
-                    //TODO
                     this.props.history.push("/profile")
                 }
             }).catch(error => {

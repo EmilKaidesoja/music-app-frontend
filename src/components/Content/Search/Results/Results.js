@@ -37,7 +37,7 @@ class Result extends Component {
     postSearch = () => {
         axios({
             method: 'post',
-            url: 'http://localhost:8080/postSearch/' + sessionStorage.getItem('token'),
+            url: `${process.env.REACT_APP_BACKEND}postSearch/` + sessionStorage.getItem('token'),
             headers: {
                 'Authorization': sessionStorage.getItem('token'),
             },

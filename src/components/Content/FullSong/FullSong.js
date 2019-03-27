@@ -79,7 +79,7 @@ class FullSong extends Component {
         } else {
             axios({
                 method: 'post',
-                url: 'http://localhost:8080/addFavoriteSong/' + sessionStorage.getItem('token'),
+                url: `${process.env.REACT_APP_BACKEND}addFavoriteSong/` + sessionStorage.getItem('token'),
                 headers: {
                     'Authorization': sessionStorage.getItem('token'),
                 },
