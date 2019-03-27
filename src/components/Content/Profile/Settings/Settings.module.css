@@ -1,0 +1,22 @@
+.Settings h3{
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+.Favorites {
+    width: 100%;
+    font-size: 85%;
+    padding: 0 25px 0 0;
+}
+.PrevSearches {
+    padding: 0 0 0 25px;
+    font-size: 90%;
+    width: 100%;
+}
+.userInfo p{
+    font-size: 150%; 
+    margin: 10px;
+}
+.FlexBox {
+    display: flex;
+}

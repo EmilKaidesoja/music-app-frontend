@@ -1,0 +1,33 @@
+.Favorite {
+    padding: 0 0 0 4px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-left: 1px solid transparent;
+    margin: 0px 0 5px 0;    
+    cursor: pointer;
+}
+
+.Favorite p {
+    font-size: 100%;
+    margin: 3px 0 7px 5px;
+}
+      
+.Favorite:hover {
+    color: #A87B7E;
+    border-bottom: 1px solid #A87B7E;
+    border-left: 1px solid #A87B7E;
+    border-right: 1px solid #A87B7E;
+    background: rgba(80, 26, 26, 0.05);
+    cursor: pointer;
+}
+.Favorite a {
+    color: white
+}
+.FlexBox {
+    margin-top: 10px;
+    display: flex;
+}
+.text {
+    flex: 1;
+}

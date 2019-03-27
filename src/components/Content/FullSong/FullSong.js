@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
 import Spinner from '../../UI/Spinner/Spinner';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import musixmatch from '../../Utils/musixmatch';
 import AlbumTrack from './AlbumTrack/AlbumTrack';
 import classes from './FullSong.module.css';
 import BackButton from '../../UI/BackButton/BackButton';
 import ForwardButton from '../../UI/ForwardButton/ForwardButton';
+import FavoriteButton from '../../UI/FavoriteButton/FavoriteButton';
+import axios from 'axios';
+import Popup from '../../UI/Popup/Popup';
 
 class FullSong extends Component {
     state = {
         albumId: null,
-        goForwardAvailable: false,
+        showPopup: false,
+        redirectToLogin: false,
     }
 
     getData = () => {
-        musixmatch.get('track.get?commontrack_id=' + this.props.match.params.id + '&apikey=a46e6b9fb2640fd377cde18fc2d20f51')
+        musixmatch.get(`track.get?commontrack_id=  ${this.props.match.params.id}  &apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
-                //console.log(response.data.message)
                 const loadedSong = {
                     artist: response.data.message.body.track.artist_name,
                     songName: response.data.message.body.track.track_name,
@@ -32,9 +35,8 @@ class FullSong extends Component {
             })
     }
     getLyrics = () => {
-        musixmatch.get('track.lyrics.get?commontrack_id=' + this.props.match.params.id + '&apikey=a46e6b9fb2640fd377cde18fc2d20f51')
+        musixmatch.get(`track.lyrics.get?commontrack_id=  ${this.props.match.params.id}  &apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
-                // console.log(response.data.message)
                 const loadedLyrics = response.data.message.body.lyrics.lyrics_body;
                 this.setState({ lyrics: loadedLyrics })
             }).catch(error => {
@@ -42,9 +44,8 @@ class FullSong extends Component {
             })
     }
     getAlbumTracks = () => {
-        musixmatch.get('album.tracks.get?album_id=' + this.state.albumId + '&page=1&page_size=10&apikey=a46e6b9fb2640fd377cde18fc2d20f51')
+        musixmatch.get('album.tracks.get?album_id=' + this.state.albumId + `&page=1&page_size=10&apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
-                console.log(response.data.message)
                 const loadedTracks = response.data.message.body.track_list;
                 const updatedTracks = loadedTracks.map(track => {
                     return {
@@ -59,7 +60,6 @@ class FullSong extends Component {
     componentDidMount() {
         this.getData();
         this.getLyrics();
-
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
@@ -70,12 +70,50 @@ class FullSong extends Component {
     arrowBackPressed = () => {
         this.props.history.goBack();
     }
-
     arrowForwardPressed = () => {
         this.props.history.goForward();
     }
+    addTofavorites = () => {
+        if (sessionStorage.getItem('token') === null) {
+            this.setState({ redirectToLogin: true })
+        } else {
+            axios({
+                method: 'post',
+                url: 'http://localhost:8080/addFavoriteSong/' + sessionStorage.getItem('token'),
+                headers: {
+                    'Authorization': sessionStorage.getItem('token'),
+                },
+                data: {
+                    id: this.props.match.params.id,
+                    artistName: this.state.fullSong.artist,
+                    songName: this.state.fullSong.songName,
+                }
+            }).then(response => {
+                console.log(response)
+                if (response.status === 200) {
+                    this.OpenAndClosePopup();
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        }
+    }
+    OpenAndClosePopup() {
+        this.setState({ showPopup: true }, () => {
+            setTimeout(() => this.setState({ showPopup: false }), 2000);
+        }
+        )
+    }
 
     render() {
+        if (this.state.redirectToLogin) {
+            return <Redirect to="/login" />
+        }
+        let popup = this.state.showPopup ? <Popup
+            artist={this.state.fullSong.artist}
+            song={this.state.fullSong.songName}
+        />
+            : null
         let albumTracks = this.state.AlbumTracksError ? <p>Something wen't wrong</p> : <Spinner />
         if (this.state.albumTracks) {
             albumTracks = this.state.albumTracks.map(track => {
@@ -83,7 +121,7 @@ class FullSong extends Component {
                     <Auxiliary>
                         <Link
                             to={"/song/" + track.track.commontrack_id}
-                            key={track.track.commontrack_id}>
+                        >
                             <AlbumTrack
                                 key={track.track.commontrack_id}
                                 artist={track.track.artist_name}
@@ -99,8 +137,13 @@ class FullSong extends Component {
         if (this.state.fullSong) {
             fullSong = (
                 <Auxiliary>
-                    <h1>{this.state.fullSong.artist}</h1>
-                    <h2>{this.state.fullSong.songName}</h2>
+                    <h1>{this.state.fullSong.songName}</h1>
+                    <div className={classes.InlineFlex}>
+                        <h2>by - {this.state.fullSong.artist}</h2>
+                        <FavoriteButton
+                            clicked={this.addTofavorites}
+                        />
+                    </div>
                     <p>Album - {this.state.fullSong.albumName}</p>
                 </Auxiliary>
             )
@@ -120,18 +163,11 @@ class FullSong extends Component {
                 )
             }
         }
-        let goForwardButton = (
-            <ForwardButton
-            clicked={this.arrowForwardPressed}
-        />
-        )
-
         return (
             <Auxiliary>
-              {goForwardButton}
-                <BackButton
-                    clicked={this.arrowBackPressed}
-                />
+                {popup}
+                <BackButton history={this.props.history} />
+                <ForwardButton history={this.props.history} />
                 {fullSong}
                 <div className={classes.FlexBox}>
                     <div className={classes.CompleteAlbum}>

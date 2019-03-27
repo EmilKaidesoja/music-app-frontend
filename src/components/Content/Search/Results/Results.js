@@ -5,6 +5,10 @@ import classes from './Results.module.css';
 import Track from './Track/Track';
 import Spinner from '../../../UI/Spinner/Spinner';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import BackButton from '../../../UI/BackButton/BackButton';
+import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 
 
 class Result extends Component {
@@ -14,8 +18,9 @@ class Result extends Component {
         blankSearch: false,
     }
 
-    loadData() {
-        musixmatch.get("track.search?q_artist=" + this.props.match.params.search + "&page_size=15&page=" + this.state.resultPage + "&s_track_rating=desc&apikey=a46e6b9fb2640fd377cde18fc2d20f51")
+    getResults() {
+        musixmatch.get("track.search?q_track_artist=" + this.props.match.params.search + "&page_size=15&page="
+            + this.state.resultPage + `&s_track_rating=desc&apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
                 console.log(response.data.message);
                 const resultSongs = response.data.message.body.track_list;
@@ -29,43 +34,65 @@ class Result extends Component {
                 console.log(error);
             })
     }
+    postSearch = () => {
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/postSearch/' + sessionStorage.getItem('token'),
+            headers: {
+                'Authorization': sessionStorage.getItem('token'),
+            },
+            data: {
+                searchWord: this.props.match.params.search,
+            }
+        }).then(response => {
+            console.log(response)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
     componentDidMount() {
+        //checks if the search is blank
         if (this.props.match.params.search !== undefined) {
-            this.loadData();
+            this.getResults();
 
         } else {
             this.setState({ blankSearch: true })
         }
-
     }
 
     componentDidUpdate(prevProps) {
+        //checks for blank search and if the same search is repeated
         if (this.props.match.params.search !== undefined) {
             if (this.props.match.params.search !== prevProps.match.params.search) {
                 this.setState({ resultSongs: null, resultPage: 1, blankSearch: false }, () => {
-                    this.loadData();
+                    this.getResults();
                 })
             }
-        } else if(this.state.blankSearch === false) {
-                this.setState({ blankSearch: true })
-            }
+        } else if (this.state.blankSearch === false) {
+            this.setState({ blankSearch: true })
         }
-
+        //the searches does not get recorded if user is not logged in or the search is blank
+        if (sessionStorage.getItem('token') !== null && this.state.blankSearch !== true) {
+            this.postSearch();
+        }
+    }
     nextPageHandler(resultPage) {
-        if(this.state.blankSearch) {return};
+        if (this.state.blankSearch) { return };
         let increment = resultPage + 1;
         this.setState({ resultPage: increment, resultSongs: null }, () => {
-            this.loadData();
+            this.getResults();
         })
 
     }
     previousPageHandler(resultPage) {
         let decrement = resultPage - 1;
         this.setState({ resultPage: decrement, resultSongs: null }, () => {
-            this.loadData();
+            this.getResults();
         })
     }
-
+    arrowBackPressed = () => {
+        this.props.history.goBack();
+    }
 
     render() {
         let previousPage = null;
@@ -86,8 +113,9 @@ class Result extends Component {
                     return (
                         <Link
                             to={"/song/" + song.track.commontrack_id}
-                            key={song.track.track_id}>
+                        >
                             <Track
+                                key={song.track.track_id}
                                 artist={song.track.artist_name}
                                 trackName={song.track.track_name}
                             />
@@ -100,10 +128,14 @@ class Result extends Component {
                 <div>
                     <p>No results for a 'blank' search word.</p>
                     <p> Please search again!</p>
+
                 </div>)
         }
         return (
             <Auxiliary>
+                <BackButton
+                    clicked={this.arrowBackPressed}
+                />
                 {message}
                 <section className={classes.Results}>
                     {resultSongs}
@@ -111,12 +143,25 @@ class Result extends Component {
                         {this.state.resultPage}
                     </div>
                     {previousPage}
-                    <button className={classes.PageButton}
-                        onClick={() => this.nextPageHandler(this.state.resultPage)}
-                    >Next page</button>
+                    <Button
+                            size="medium"
+                            className={this.props.classes.button}
+                            onClick={() => this.nextPageHandler(this.state.resultPage)}
+                        >NEXT PAGE</Button>      
                 </section>
             </Auxiliary>
         )
     }
 }
-export default Result;
+const styles = {
+    button: {
+        margin: '10px',
+        color: 'white',
+        border: '1px solid white',
+        '&:hover': {
+            color: '#866068',
+            borderColor: '#866068',
+        }
+    }
+}
+export default withStyles(styles)(Result);

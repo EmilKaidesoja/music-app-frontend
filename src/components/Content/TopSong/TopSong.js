@@ -7,10 +7,10 @@ import musixmatch from '../../Utils/musixmatch';
 
 class TopSongs extends Component {
     state = {
-        topSongs: null,
+        error: null,
     }
     componentDidMount() {
-        musixmatch.get("chart.tracks.get?page=1&page_size=10&country=fin&apikey=a46e6b9fb2640fd377cde18fc2d20f51")
+        musixmatch.get(`chart.tracks.get?page=1&page_size=10&country=fin&apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
                 console.log(response.data.message.body.track_list);
                 const topSongs = response.data.message.body.track_list;
@@ -22,6 +22,7 @@ class TopSongs extends Component {
                 this.setState({ topSongs: updatedSongs })
             }).catch(error => {
                 console.log(error);
+                this.setState({error: true})
             })
     }
 

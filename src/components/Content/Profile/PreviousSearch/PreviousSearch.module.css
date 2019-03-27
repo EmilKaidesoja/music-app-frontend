@@ -1,0 +1,24 @@
+.PrevSearch {
+    width: 100%;
+    padding: 0 4px 0 0;
+    text-align: right;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #eee;
+    margin: 0 0 3px 0;      
+    cursor: pointer;
+}
+
+.PrevSearch h2 {
+    font-size: 100%;
+    color: white;
+    margin: 10px;
+}
+      
+.PrevSearch:hover {
+    color: #A87B7E;
+    border-bottom: 1px solid #A87B7E;
+    border-left: 1px solid #A87B7E;
+    border-right: 1px solid #A87B7E;
+    background: rgba(80, 26, 26, 0.05);
+    cursor: pointer;
+}

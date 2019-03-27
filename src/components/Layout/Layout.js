@@ -10,15 +10,16 @@ class Layout extends Component {
     render() {
 
         return (
-            <div className={classes.Background}>
-                    <Route path="/" component={Header} />
+            <div>
+            <div className={classes.Background}></div>
+                <Route path="/" component={Header} />
                 <main className={classes.Content}>
                     {this.props.children}
                 </main>
                 <div className={classes.Footer}>
                     <Footer />
                 </div>
-
+           
             </div>
         )
     }

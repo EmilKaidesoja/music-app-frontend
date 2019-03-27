@@ -3,34 +3,60 @@ import Auxiliary from '../../../hoc/Auxiliary';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
+import ForwardButton from '../../UI/ForwardButton/ForwardButton';
 import BackButton from '../../UI/BackButton/BackButton';
+import axios from 'axios';
 
 class Login extends Component {
     state = {
-        user: {
-            username: '', password: ''
-        },
+        username: '',
+        password: '',
+        errorMessage: null,
     }
 
     change = (e) => {
         this.setState({
-            user: { [e.target.name]: e.target.value }
-        }
-        );
+            [e.target.name]: e.target.value
+        });
     }
-
     login = () => {
-        console.log('You LOGIN!')
+        if (sessionStorage.getItem('token') === null) {
+            axios({
+                method: 'POST',
+                url: 'http://localhost:8080/login',
+                data: {
+                    username: this.state.username,
+                    password: this.state.password,
+                }
+
+            }).then(response => {
+                console.log(response)
+                //if the login was successful
+                if (response.status === 200) {
+                    const jwtToken = response.headers.authorization;
+                    sessionStorage.setItem('token', jwtToken);
+                    //TODO
+                    this.props.history.push("/profile")
+                }
+            }).catch(error => {
+                console.log(error)
+            })
+        }else {
+            this.setState({errorMessage: <p>You are already logged in!</p>})
+        }
     }
     arrowBackPressed = () => {
-        this.props.history.push("/signup");
+        this.props.history.goBack();
     }
+    registerButtonSelected = () => {
+        this.props.history.push("/register");
+    }
+
     render() {
         return (
             <Auxiliary>
-                <BackButton
-                    clicked={this.arrowBackPressed}
-                />
+                <BackButton history={this.props.history} />
+                <ForwardButton history={this.props.history} />
                 <h1 style={{ marginRight: "40px" }}>Login</h1>
                 <form>
                     <TextField
@@ -76,6 +102,7 @@ class Login extends Component {
                         name="password"
                         onChange={this.change}
                     /><br />
+                    {this.state.errorMessage}
                     <Button
                         type='button'
                         value='login'
@@ -84,6 +111,12 @@ class Login extends Component {
                         onClick={this.login}
                     >Login</Button>
                 </form>
+                <p>Don't have a profile?</p>
+                <Button
+                    size="medium"
+                    className={this.props.classes.button}
+                    onClick={this.registerButtonSelected}
+                > Register account </Button>
             </Auxiliary>
         );
     }
@@ -122,6 +155,15 @@ const styles = {
             borderColor: '#866068',
         },
     },
+    button: {
+        marginTop: '10px',
+        color: 'white',
+        border: '1px solid white',
+        '&:hover': {
+            color: '#866068',
+            borderColor: '#866068',
+        }
+    }
 }
 
 

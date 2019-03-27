@@ -3,13 +3,16 @@ import ArrowForward from '@material-ui/icons/ArrowForward';
 import { withStyles } from '@material-ui/core/styles';
 
 class ForwardButton extends Component {
+    clicked = () => {
+        this.props.history.goForward();
+    }
     render() {
         return (
             <ArrowForward
                 classes={{
                     root: this.props.classes.arrowBack,
                 }}
-                onClick={this.props.clicked}
+                onClick={this.clicked}
             />
         )
     }

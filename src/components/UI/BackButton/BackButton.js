@@ -3,13 +3,16 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 import { withStyles } from '@material-ui/core/styles';
 
 class BackButton extends Component {
+    clicked = () => {
+        this.props.history.goBack();
+    }
     render() {
         return (
             <ArrowBack
                 classes={{
                     root: this.props.classes.arrowBack,
                 }}
-                onClick={this.props.clicked}
+                onClick={() => this.clicked()}
             />
         )
     }

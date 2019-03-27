@@ -4,36 +4,34 @@
     padding: 0;
     text-align: center;
     border: 1px solid #eee;
-    box-shadow: 0 1px 1.5px #ccc;
+    border-bottom: 2px solid white;
+    box-shadow: 0 3px 5px 0 rgba(201, 191, 191, 0.459);
+    background-color: rgba(32, 26, 26, 0.87);
     margin: 10px;
-    box-sizing: border-box;
     cursor: pointer;
     overflow: hidden;
-}
-
-.Song h2 {
-    color: white;
-    margin-bottom: 0;
+    border-radius: 5px;
 }
 
 .SongName {
-  height: 45%;
-  border-top: 1px solid white;
-  background-color: rgba(179, 173, 173, 0.25);
-  box-shadow: 0 1px 1.5px white;
+    border-radius: 6px;
+    height: 45%;
+    border: 2px solid rgba(165, 163, 163, 0.979);
+    background-color: rgb(90, 30, 30);
+    box-shadow: 0 1px 1.5px white;
 }
 
 .SongName p {
    margin: 0;
-   padding: 15px 0 15px 0;
+   padding: 10px 0 15px 0;
 }
       
 .Song:hover {
         color: #A87B7E;
-        border: 0.5px solid #A87B7E;
-        background: rgb(49, 15, 15);
+        border: 1px solid #A87B7E;
+        border-bottom: 2px solid #A87B7E;
+        background: rgba(49, 15, 15, 0.596);
         cursor: pointer;
-        box-shadow: 0 2px 3px black;
 }
 
 .ArtistName {

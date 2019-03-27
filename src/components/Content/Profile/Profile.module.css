@@ -1,0 +1,31 @@
+.Profile h3{
+    color: white;
+    text-align: left;
+    margin-bottom: 25px;
+}
+.Favorites {
+    margin-right: 10px;
+    padding: 10px;
+    width: 100%;
+    background-color: rgba(32, 26, 26, 0.87);
+    border: 1px solid rgba(201, 191, 191, 0.459);
+    box-shadow: 0 3px 5px 0 rgba(201, 191, 191, 0.459);
+}
+.PrevSearches {
+    background-color: rgba(32, 26, 26, 0.87);
+    margin-left: 10px;
+    border: 1px solid rgba(201, 191, 191, 0.459);
+    padding: 10px;
+    width: 100%;
+    box-shadow: 0 3px 5px 0 rgba(201, 191, 191, 0.459);
+}
+.Profile p{
+    font-size: 100%; 
+}
+.Profile h3 {
+    color: white;
+    margin-bottom: 25px;
+}
+.FlexBox {
+    display: flex;
+}
