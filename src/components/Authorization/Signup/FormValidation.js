@@ -56,7 +56,9 @@ class FormValidation extends Component {
             }
         }).then(response => {
             console.log(response)
-            if (response.status === 200) {
+            if(response.data === 'reserved'){
+                this.setState({errorMessage : 'Username is already taken'})
+            } else if (response.status === 200) {
                 sessionStorage.setItem('token', response.data);
                 sessionStorage.setItem('username', this.state.username);
                 this.setState({ registerSuccessful: true });
