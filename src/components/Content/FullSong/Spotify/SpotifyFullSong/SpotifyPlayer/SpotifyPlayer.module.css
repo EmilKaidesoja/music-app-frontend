@@ -1,0 +1,19 @@
+.player {
+    background-color: rgba(41, 45, 51, 0.486);
+    border-radius: 5px;
+    padding: 5px;
+}
+.ProgressBar {
+    margin-left: auto;
+    margin-right: auto;
+    height: 5px;
+    width: 400px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.397);
+}
+.Filler {
+    background: rgb(56, 151, 56);
+    height: 100%;
+    border-radius: inherit;
+    transition: width .2s ease-in;
+}

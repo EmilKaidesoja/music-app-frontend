@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-//this is the base url for all the music match fetches
+//this is the axios instance for all the musixmatch fetches
 const musixmatch = axios.create({
-    baseURL: 'https://evening-temple-64997.herokuapp.com/api.musixmatch.com/ws/1.1/',
+    baseURL: `${process.env.REACT_APP_CORS}api.musixmatch.com/ws/1.1/`,
 });
 export default musixmatch

@@ -1,0 +1,13 @@
+.Spotify a {
+    display: inline-block;
+    color: white;
+    padding: 12px;
+    margin: 5px;
+    background-color: green;
+    border-radius: 25px;
+    font-weight: bold;
+}
+.Spotify a:hover {
+    background-color: darkgreen;
+    cursor: pointer;
+}

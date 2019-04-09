@@ -1,39 +1,17 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import classes from './SpotifyConnect.module.css';
 
-class SpotifyConncect extends Component {
+class SpotifyConnect extends Component {
     render() {
         return (
-            <div>
+            <div className={classes.Spotify}>
                 <h2>Spotify</h2>
                 <p><u>Connect</u> your account to Spotify here!</p>
                 <p>This will give you access to new features, like listening to songs, that are only available through Spotify!</p>
                 <p>This requires* a Spotify Premium account.</p>
-                <h2>NOT working at this moment!</h2>
-                <Button
-                    size="large"
-                    classes={{
-                        root: this.props.classes.button
-                    }}
-                    onClick={this.props.clicked}
-                >Connect With Spotify</Button>
+                 <a href={`${process.env.REACT_APP_BACKEND}spotify/connect/` + sessionStorage.getItem('token')}>CONNECT WITH SPOTIFY</a>
             </div>
         )
     }
 }
-const styles = {
-    button: {
-        margin: '10px',
-        backgroundColor: '#008000',
-        color: 'white',
-        border: '1px solid lightGrey',
-        borderRadius: '20px',
-        '&:hover': {
-            color: 'white',
-            borderColor: '#008000',
-            backgroundColor: '#008000',
-        },
-    }
-}
-export default withStyles(styles)(SpotifyConncect);
+export default SpotifyConnect;

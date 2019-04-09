@@ -9,6 +9,7 @@ import axios from 'axios';
 import BackButton from '../../../UI/BackButton/BackButton';
 import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
+import ForwardButton from '../../../UI/ForwardButton/ForwardButton';
 
 
 class Result extends Component {
@@ -22,7 +23,6 @@ class Result extends Component {
         musixmatch.get("track.search?q_track_artist=" + this.props.match.params.search + "&page_size=15&page="
             + this.state.resultPage + `&s_track_rating=desc&apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
-                console.log(response.data.message);
                 const resultSongs = response.data.message.body.track_list;
                 const updatedSongs = resultSongs.map(song => {
                     return {
@@ -30,6 +30,10 @@ class Result extends Component {
                     }
                 });
                 this.setState({ resultSongs: updatedSongs })
+                //the searches does not get recorded if user is not logged in or the search is blank
+                if (sessionStorage.getItem('token') !== null && this.state.blankSearch !== true && this.state.resultPage <= 1) {
+                    this.postSearch();
+                }
             }).catch(error => {
                 console.log(error);
             })
@@ -45,7 +49,7 @@ class Result extends Component {
                 searchWord: this.props.match.params.search,
             }
         }).then(response => {
-            console.log(response)
+            //console.log(response)
         }).catch(error => {
             console.log(error)
         })
@@ -71,10 +75,8 @@ class Result extends Component {
         } else if (this.state.blankSearch === false) {
             this.setState({ blankSearch: true })
         }
-        //the searches does not get recorded if user is not logged in or the search is blank
-        if (sessionStorage.getItem('token') !== null && this.state.blankSearch !== true) {
-            this.postSearch();
-        }
+
+
     }
     nextPageHandler(resultPage) {
         if (this.state.blankSearch) { return };
@@ -89,9 +91,6 @@ class Result extends Component {
         this.setState({ resultPage: decrement, resultSongs: null }, () => {
             this.getResults();
         })
-    }
-    arrowBackPressed = () => {
-        this.props.history.goBack();
     }
 
     render() {
@@ -133,9 +132,8 @@ class Result extends Component {
         }
         return (
             <Auxiliary>
-                <BackButton
-                    clicked={this.arrowBackPressed}
-                />
+                <BackButton history={this.props.history} />
+                <ForwardButton history={this.props.history} />>
                 {message}
                 <section className={classes.Results}>
                     {resultSongs}
@@ -144,10 +142,10 @@ class Result extends Component {
                     </div>
                     {previousPage}
                     <Button
-                            size="medium"
-                            className={this.props.classes.button}
-                            onClick={() => this.nextPageHandler(this.state.resultPage)}
-                        >NEXT PAGE</Button>      
+                        size="medium"
+                        className={this.props.classes.button}
+                        onClick={() => this.nextPageHandler(this.state.resultPage)}
+                    >NEXT PAGE</Button>
                 </section>
             </Auxiliary>
         )

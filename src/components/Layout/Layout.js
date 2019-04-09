@@ -3,12 +3,27 @@ import Header from '../Navigation/Header';
 import Footer from '../Navigation/Footer';
 import classes from './Layout.module.css';
 import { Route } from 'react-router-dom';
+import SpotifyConnection from '../Content/Home/SpotifyConnection';
 
 class Layout extends Component {
+    state ={ 
+        connect: false,
+    }
+    componentDidMount = () => {
+        if (sessionStorage.getItem('SpotifyToken')) {
+            this.setState({ connect: true })
+        }
+    }
+
     render() {
+        let connect = null;
+        if (this.state.connect) {
+            connect = <SpotifyConnection />
+        }
         return (
             <div>
-            <div className={classes.Background}></div>
+                {connect}
+                <div className={classes.Background}></div>
                 <Route path="/" component={Header} />
                 <main className={classes.Content}>
                     {this.props.children}
@@ -16,7 +31,7 @@ class Layout extends Component {
                 <div className={classes.Footer}>
                     <Footer />
                 </div>
-           
+
             </div>
         )
     }

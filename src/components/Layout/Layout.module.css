@@ -12,25 +12,25 @@ body {
     margin: 0;
     filter: blur(8px);
     -webkit-filter: blur(8px);
-    background-image: url(../../images/background.jpg);
-    height: 900px;
+    background-image: url(../../images/background2.jpg);
+    height: 1000px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
   }
 
 .Content { 
+  background-color: rgba(36, 25, 25, 0.3);
     left: 0;
     right: 0;
     z-index: 9999;
     margin: 2% 10%;
     text-align: center;
-    background: rgba(179, 173, 173, 0.10);
     padding: 0.5% 5% 2% 5%;
   }
 .Footer {
+  background-color: rgba(36, 25, 25, 0.3);
     margin: 2% 10%;
-    background: rgba(179, 173, 173, 0.10);
     text-align: center;
 }
 p {   

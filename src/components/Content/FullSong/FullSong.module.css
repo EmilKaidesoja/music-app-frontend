@@ -17,7 +17,7 @@ h2  {
 .Lyrics p{
     font-size: 100%; 
 }
-.Lyrics h3 {
+h3 {
     color: white;
     margin-bottom: 25px;
 }
@@ -27,6 +27,7 @@ h2  {
 .InlineFlex {
     display: inline-flex;
 }
-.InlineFlex h2{
-    padding: 0 100px 0 0;
+.Image {
+    height: 300px;
+    margin-left: 100px;
 }

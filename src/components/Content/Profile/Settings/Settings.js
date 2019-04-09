@@ -168,7 +168,7 @@ class Settings extends Component {
             if (this.state.searches.length === 0) {
                 searches = <p>Your history is clear</p>
             } else {
-                searches = this.state.searches.map(track => {
+                searches = this.state.searches.slice(0,10).map(track => {
                     return (
                         <Link
                             to={"/search/" + track.searchWord}>
@@ -229,7 +229,6 @@ class Settings extends Component {
                     <div className={classes.userInfo}>
                         {userInformation}
                     </div>
-                    <hr />
                     <div className={classes.FlexBox}>
                         <div className={classes.Favorites}>
                             <h2>Your Favorites</h2>
@@ -250,14 +249,13 @@ class Settings extends Component {
                             >Clear history</Button>
                         </div>
                     </div>
-                    <hr />
                     <h2>Had enough?</h2>
                     <Button
                         size="small"
                         className={this.props.classes.button}
                         onClick={this.deleteAccount}
                     >Delete user</Button>
-                    <h3>If you feel like leaving completely</h3>
+                    <p>If you feel like leaving completely</p>
                 </div>
             </Auxiliary>
         )

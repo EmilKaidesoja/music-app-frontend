@@ -30,7 +30,7 @@ class Login extends Component {
                 }
 
             }).then(response => {
-                console.log(response)
+               // console.log(response)
                 if (response.status === 200) {
                     const jwtToken = response.headers.authorization;
                     sessionStorage.setItem('token', jwtToken);

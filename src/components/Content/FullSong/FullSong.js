@@ -10,15 +10,19 @@ import ForwardButton from '../../UI/ForwardButton/ForwardButton';
 import FavoriteButton from '../../UI/FavoriteButton/FavoriteButton';
 import axios from 'axios';
 import Popup from '../../UI/Popup/Popup';
+import spotify from '../../Utils/spotify';
+import SpotifyFullSong from './Spotify/SpotifyFullSong/SpotifyFullSong';
+import SpotifyDisabled from '../../UI/SpotifyDisabled/SpotifyDisabled';
 
 class FullSong extends Component {
     state = {
-        albumId: null,
         showPopup: false,
         redirectToLogin: false,
+        spotifyConnection: true,
+        lyricsError: false,
     }
 
-    getData = () => {
+    getMusiXmatchData = () => {
         musixmatch.get(`track.get?commontrack_id=  ${this.props.match.params.id}  &apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
                 const loadedSong = {
@@ -29,6 +33,12 @@ class FullSong extends Component {
                 const loadedAlbumId = response.data.message.body.track.album_id;
                 this.setState({ fullSong: loadedSong, albumId: loadedAlbumId, }, () => {
                     this.getAlbumTracks();
+                    //Checks if the user has connected to Spotify
+                    if (sessionStorage.getItem('SpotifyToken')) {
+                        this.CheckIfArtistNameIsInvalid();
+                    } else {
+                        this.setState({ spotifyConnection: false })
+                    }
                 })
             }).catch(error => {
                 console.log(error);
@@ -38,9 +48,10 @@ class FullSong extends Component {
         musixmatch.get(`track.lyrics.get?commontrack_id=  ${this.props.match.params.id}  &apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
                 const loadedLyrics = response.data.message.body.lyrics.lyrics_body;
-                this.setState({ lyrics: loadedLyrics })
+                this.setState({ lyrics: loadedLyrics, lyricsError: false })
             }).catch(error => {
                 console.log(error);
+                this.setState({ lyricsError: true })
             })
     }
     getAlbumTracks = () => {
@@ -58,20 +69,14 @@ class FullSong extends Component {
             })
     }
     componentDidMount() {
-        this.getData();
+        this.getMusiXmatchData();
         this.getLyrics();
     }
     componentDidUpdate(prevProps) {
         if (this.props.match.params.id !== prevProps.match.params.id) {
-            this.getData();
+            this.getMusiXmatchData();
             this.getLyrics();
         }
-    }
-    arrowBackPressed = () => {
-        this.props.history.goBack();
-    }
-    arrowForwardPressed = () => {
-        this.props.history.goForward();
     }
     addTofavorites = () => {
         if (sessionStorage.getItem('token') === null) {
@@ -89,7 +94,6 @@ class FullSong extends Component {
                     songName: this.state.fullSong.songName,
                 }
             }).then(response => {
-                console.log(response)
                 if (response.status === 200) {
                     this.OpenAndClosePopup();
                 }
@@ -105,7 +109,109 @@ class FullSong extends Component {
         )
     }
 
+    //If the artist name contains invalid characters this method removes them
+    CheckIfArtistNameIsInvalid = () => {
+        let artistName = null;
+        let fullSong = null;
+        switch (true) {
+            case (this.state.fullSong.artist.includes('feat')):
+
+                artistName = this.state.fullSong.artist.slice(0, this.state.fullSong.artist.indexOf('feat'))
+                fullSong = Object.assign({}, this.state.fullSong);
+                fullSong.artist = artistName;
+                this.setState({ fullSong }, () => {
+                    this.getSpotifyArtist();
+                    this.getSpotifySong();
+                })
+                break;
+            case (this.state.fullSong.artist.includes('&')):
+
+                artistName = this.state.fullSong.artist.slice(0, this.state.fullSong.artist.indexOf('&'))
+                fullSong = Object.assign({}, this.state.fullSong);
+                fullSong.artist = artistName;
+                this.setState({ fullSong }, () => {
+                    this.getSpotifyArtist();
+                    this.getSpotifySong();
+                })
+                break;
+            default:
+                this.getSpotifyArtist();
+                this.getSpotifySong();
+                break;
+        }
+    }
+
+    getSpotifyArtist = () => {
+        spotify({
+            method: 'get',
+            url: 'search',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('SpotifyToken'),
+            },
+            params: {
+                q: this.state.fullSong.artist,
+                type: 'artist',
+            },
+        }).then(response => {
+            const img = response.data.artists.items[0].images[0].url;
+            const id = response.data.artists.items[0].id;
+            this.setState({ artistImage: img, artistId: id })
+        }).catch(error => {
+            console.log(error)
+            this.setState({ spotifyConnection: false })
+        })
+    }
+
+    getSpotifySong = () => {
+        spotify({
+            method: 'get',
+            url: 'search',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+                'Authorization': 'Bearer ' + sessionStorage.getItem('SpotifyToken'),
+            },
+            params: {
+                q: this.state.fullSong.songName + " " + this.state.fullSong.artist,
+                type: 'track',
+            },
+        }).then(response => {
+            const songName = response.data.tracks.items[0].name;
+            const songUri = response.data.tracks.items[0].uri;
+            const songLengthInMS = response.data.tracks.items[0].duration_ms;
+            const seconds = (response.data.tracks.items[0].duration_ms / 1000) % 60;
+            const minutes = (response.data.tracks.items[0].duration_ms / 1000 - seconds) / 60;
+            const songLength = minutes + ":" + Math.floor(seconds);
+            this.setState({ songName: songName, songUri: songUri, songLength: songLength, songLengthInMS: songLengthInMS })
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+
     render() {
+        //These expressions check if the connection to spotify has been made and if the token is still viable
+        let SpotifySection = this.props.spotifyConnection ? <Spinner /> : sessionStorage.getItem('SpotifyToken') ? <p>Token expired</p> : <SpotifyDisabled history={this.props.history}/>
+        if (this.state.artistId && sessionStorage.getItem('deviceId') !== null) {
+            SpotifySection = <SpotifyFullSong
+                songUri={this.state.songUri}
+                artistId={this.state.artistId}
+                artist={this.state.fullSong.artist}
+                songName={this.state.songName}
+                songLength={this.state.songLength}
+                songLengthInMS={this.state.songLengthInMS}
+            />;
+        }
+        let image = this.state.spotifyConnection ? <Spinner /> : sessionStorage.getItem('SpotifyToken') ? <p>Token expired</p> : null
+        if (this.state.artistImage) {
+            image = (<img
+                className={classes.Image}
+                src={this.state.artistImage}
+                alt="artist"
+            />);
+        }
+        //if the user tries to favorite the song while not logged in
         if (this.state.redirectToLogin) {
             return <Redirect to="/login" />
         }
@@ -137,17 +243,19 @@ class FullSong extends Component {
         if (this.state.fullSong) {
             fullSong = (
                 <Auxiliary>
-                    <h1>{this.state.fullSong.songName}</h1>
+
                     <div className={classes.InlineFlex}>
-                        <h2>by - {this.state.fullSong.artist}</h2>
-                        <FavoriteButton
-                            clicked={this.addTofavorites}
-                        />
+                        <div>
+                            <h1>{this.state.fullSong.songName}</h1>
+                            <h2>by - {this.state.fullSong.artist}</h2>
+                            <p>Album - {this.state.fullSong.albumName}</p>
+                        </div>
+                        {image}
                     </div>
-                    <p>Album - {this.state.fullSong.albumName}</p>
+
                 </Auxiliary>
             )
-            if (this.state.lyrics !== undefined) {
+            if (!this.state.lyricsError) {
                 lyrics = (
                     <div className={classes.Lyrics}>
                         <h3>Lyrics</h3>
@@ -169,6 +277,7 @@ class FullSong extends Component {
                 <BackButton history={this.props.history} />
                 <ForwardButton history={this.props.history} />
                 {fullSong}
+
                 <div className={classes.FlexBox}>
                     <div className={classes.CompleteAlbum}>
                         <h3>Complete album</h3>
@@ -176,6 +285,10 @@ class FullSong extends Component {
                     </div>
                     {lyrics}
                 </div>
+                <FavoriteButton
+                    clicked={this.addTofavorites}
+                />
+                {SpotifySection}
             </Auxiliary>
         )
     }

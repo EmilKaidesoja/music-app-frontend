@@ -95,7 +95,7 @@ class Profile extends Component {
             if (this.state.searches.length === 0) {
                 searches = <p>You haven't searched for anything yet! Don't be shy</p>
             } else {
-                searches = this.state.searches.map(track => {
+                searches = this.state.searches.slice(0, 5).map(track => {
                     return (
                         <Link to={"/search/" + track.searchWord}>
                             <PreviousSearch
@@ -130,9 +130,7 @@ class Profile extends Component {
                             {searches}
                         </div>
                     </div>
-                    <hr />
                     <SpotifyConnect />
-                    <hr />
                     <Button
                         size="large"
                         classes={{

@@ -21,4 +21,11 @@
     height:  50px;
     align-content: center;
 }
+.Footer ul{
+    margin-top: 0;
+}
+hr{
+    margin: 0;
+}
+
 

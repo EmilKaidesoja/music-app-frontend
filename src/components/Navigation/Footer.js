@@ -10,8 +10,10 @@ class Footer extends Component {
 
     render() {
         return (
+            <div>
+            <hr />
             <footer className={classes.Footer}>
-                <ul>
+                <ul>   
                     <li><a target="_blank" rel="noopener noreferrer" href="https://www.github.com/EmilKaidesoja">GitHub</a></li>
                     <li><a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/emil-kaidesoja-12207bb7/">LinkedIn</a></li>
                     <li><a target="_blank" rel="noopener noreferrer" href="https://www.musixmatch.com/">musixmatch</a></li>
@@ -21,6 +23,7 @@ class Footer extends Component {
                     <li><NavLink to="/profile/settings" >Settings</NavLink></li>
                 </ul>
             </footer>
+            </div>
         )
     }
 }

@@ -91,15 +91,18 @@ class Header extends Component {
                         <Search />
                     </Toolbar>
                 </AppBar>
+                 <hr />
             </div>
         );
     }
 }
 const styles = {
     root: {
+        backgroundColor: 'rgba(36, 25, 25, 0.3)',
         margin: '1% 10%',
         height: '8%',
-        background: 'rgba(179, 173, 173, 0.10)',
+        paddingTop: '1%',
+        marginTop: '0',
         color: 'white',
     },
     navBar: {

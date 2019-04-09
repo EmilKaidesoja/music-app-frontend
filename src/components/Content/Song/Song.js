@@ -4,6 +4,7 @@ import classes from './Song.module.css';
 const song = (props) => {
     return (
         <article className={classes.Song}>
+        <h3>{props.nro}</h3>
         <div className={classes.ArtistName}>
             <h2>{props.artist}</h2>
             </div>

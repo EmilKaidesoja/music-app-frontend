@@ -12,9 +12,8 @@ class TopSongs extends Component {
     componentDidMount() {
         musixmatch.get(`chart.tracks.get?page=1&page_size=10&country=fin&apikey=${process.env.REACT_APP_MM_API_KEY}`)
             .then(response => {
-                console.log(response.data.message.body.track_list);
-                const topSongs = response.data.message.body.track_list;
-                const updatedSongs = topSongs.map(song => {
+                const songs = response.data.message.body.track_list;
+                const updatedSongs = songs.map(song => {
                     return {
                         ...song,
                     }
@@ -29,12 +28,13 @@ class TopSongs extends Component {
     render() {
         let topSongs = this.state.error ? <p>Something went wrong</p> : <Spinner />
         if (this.state.topSongs) {
-            topSongs = this.state.topSongs.map(song => {
+            topSongs = this.state.topSongs.map((song, index) =>  {
                 return (
                         <Link
                             to={"/song/" + song.track.commontrack_id}
                             key={song.track.track_id}>
                             <Song
+                                nro={index + 1}
                                 artist={song.track.artist_name}
                                 trackName={song.track.track_name}
                             />
