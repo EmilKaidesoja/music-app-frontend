@@ -203,7 +203,7 @@ class FullSong extends Component {
                 songLengthInMS={this.state.songLengthInMS}
             />;
         }
-        let image = this.state.spotifyConnection ? <Spinner /> : sessionStorage.getItem('SpotifyToken') ? <p>Token expired</p> : null
+        let image = this.state.spotifyConnection ? <Spinner /> : null
         if (this.state.artistImage) {
             image = (<img
                 className={classes.Image}

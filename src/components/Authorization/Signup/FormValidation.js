@@ -126,7 +126,7 @@ class FormValidation extends Component {
             return <Redirect to="/profile" />
         }
         return (
-            <div>{this.state.errorMessage}</div>
+            <p>{this.state.errorMessage}</p>
         )
     }
 }

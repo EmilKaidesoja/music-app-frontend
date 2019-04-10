@@ -32,7 +32,6 @@ class Home extends Component {
                 <p>In this application you can search for your favorite songs and artists. Or discover new songs and top hits!
                     This application uses the musiXmatch API. Sign in and keep track of your searches and favorite songs</p>
                     <p>Connect your profile with your Spotify Premium account to gain access to extra features!</p>
-                <p>(This application is still a working progress)</p>
             </Auxiliary>
         )
         return (

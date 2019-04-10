@@ -38,7 +38,6 @@ class SpotifyFullSong extends Component {
             relatedArtists = (
                 this.state.relatedArtists.slice(0, 6).map(artist => {
                     return (
-
                         <Link to={'/search/' + artist.name}>
                             <RelatedArtist
                                 artist={artist.name}
